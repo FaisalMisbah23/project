@@ -1,0 +1,24 @@
+GET http://localhost:3000
+
+### fetch songs 
+GET http://localhost:3000/songs
+
+### post a new song
+POST http://localhost:3000/songs
+Content-Type: application/json
+
+{
+    "title": "Song 1",
+    "artists": ["Queen"],
+    "releasedData": "2000-10-31",
+    "duration": "05:55"  
+}
+
+### update a song
+PUT http://localhost:3000/songs/1
+
+### delete a song
+DELETE http://localhost:3000/songs/1
+
+### fetch a song by id
+GET http://localhost:3000/songs/5
