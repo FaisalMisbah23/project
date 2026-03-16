@@ -8,6 +8,7 @@ import { DevConfigService } from './common/providers/DevConfigService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { DataSource } from 'typeorm';
+import { Songs } from './songs/song.entity';
 
 const devConfig = { port: 3000 }
 const proConfig = { port: 4000 }
@@ -26,7 +27,7 @@ const proConfig = { port: 4000 }
       type: 'postgres',
       username: process.env.DB_USER ?? 'skills_project_user',
       password: process.env.DB_PASSWORD ?? '',
-      entities:[],
+      entities:[Songs],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
     SongsModule

@@ -2,10 +2,13 @@ import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, ParseIntPipe,
 import { SongsService } from './songs.service';
 import { CreateSongDTO } from './dto/create-song-dto';
 import type { Connection } from 'src/common/constants/connection';
+import { Songs } from './song.entity';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { UpdateSongDTO } from './dto/update-song-dto';
 
 @Controller({
-    path:'songs',
-    scope:Scope.REQUEST    
+    path: 'songs',
+    scope: Scope.REQUEST
 })
 export class SongsController {
     constructor(private songsService: SongsService, @Inject("CONNECTION") private connection: Connection,) {
@@ -13,29 +16,31 @@ export class SongsController {
     }
     // get all songs 
     @Get()
-    findAllSongs() {
+    findAllSongs(): Promise<Songs[]> {
         return this.songsService.findAllSongs()
     }
 
     // find song by id
     @Get(":id")
-    findOneSong(@Param("id", new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number) {
-        return `song by ${id}, typ: ${typeof id}`
+    findOneSong(@Param("id", new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) id: number): Promise<Songs> {
+        return this.songsService.findOneSong(id);
     }
 
     @Post()
-    addSong(@Body() CreateSongDTO: CreateSongDTO) {
+    addSong(@Body() CreateSongDTO: CreateSongDTO): Promise<Songs> {
         return this.songsService.createSong(CreateSongDTO)
     }
 
     @Put(":id")
-    updateSong() {
-        return "song updated successfully"
+    updateSong(
+        @Body() songToUpdate: UpdateSongDTO,
+        @Param("id", ParseIntPipe) id: number): Promise<UpdateResult> {
+        return this.songsService.updateSong(id, songToUpdate)
     }
 
     @Delete(":id")
-    deleteSong() {
-        return "song deleted successfully"
+    deleteSong(@Param("id", ParseIntPipe) id: number): Promise<DeleteResult> {
+        return this.songsService.removeSong(id)
     }
 }
 

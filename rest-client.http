@@ -8,17 +8,28 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-    "title": "Song 1",
-    "artists": ["Queen"],
-    "releasedData": "2000-10-31",
-    "duration": "05:55"  
+"title":"New Song Title for the new song that is being added to the database",
+"artists":["New Artist","Another Artist","Third Artist","Fourth Artist","Fifth Artist"],
+"releasedData":"2024-01-01 00:00:00",
+"duration":"05:00",
+"lyrics" :"New Lyrics for the new song that is being added to the database. This song is expected to be a hit and will be loved by many fans around the world. The lyrics are catchy and the melody is unforgettable. This song will definitely top the charts and become a favorite among music lovers everywhere. The artists have put a lot of effort into creating this masterpiece and it shows in the final product. The song is a blend of different genres and has a unique sound that sets it apart from other songs in the market. Fans are eagerly waiting for the release of this song and it is expected to receive rave reviews from critics and listeners alike."
 }
 
 ### update a song
-PUT http://localhost:3000/songs/1
+PUT http://localhost:3000/songs/3
+Content-Type: application/json
+
+{
+"title":"Updated Song Title for the song that is being updated in the database",
+"artists":["Updated Artist","Another Updated Artist","Third Updated Artist","Fourth Updated Artist","Fifth Updated Artist"],
+"releasedData":"2024-02-01 00:00:00",
+"duration":"04:30",
+"lyrics" :"Updated Lyrics for the song that is being updated in the database."
+}
+
 
 ### delete a song
-DELETE http://localhost:3000/songs/1
+DELETE http://localhost:3000/songs/4
 
 ### fetch a song by id
-GET http://localhost:3000/songs/5
+GET http://localhost:3000/songs/10

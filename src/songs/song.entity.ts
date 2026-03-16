@@ -1,31 +1,31 @@
 // import { Playlist } from "src/playlists/playlist.entity";
-// import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-// @Entity("songs")
-// export class Songs {
-//     @PrimaryGeneratedColumn()
-//     id: number
+@Entity("songs")
+export class Songs {
+    @PrimaryGeneratedColumn()
+    id: number
 
-//     @Column()
-//     title: string
+    @Column()
+    title: string
 
-//     @Column("time")
-//     duration:Date
+    @Column("varchar", { array: true })
+    artists: string[]
 
-//     @Column("text")
-//     lyrics:string
+    @Column("date")
+    releasedData: Date
 
+    @Column("time")
+    duration: Date
 
+    @Column("text")
+    lyrics: string
 
-//     @ManyToMany(() => Artist, (artist) => songs, (cascade:))
-//     @JoinTable({ name: "songs_artist" })
-//     artist: Artist[];
+    // @ManyToMany(() => Artist, (artist) => songs, (cascade:))
+    // @JoinTable({ name: "songs_artist" })
+    // artist: Artist[];
 
-//     // many songs can belong to playlist for each unique user 
-//     @ManyToOne(() => Playlist, (playList) => playList.songs)
-//     playList: Playlist;
-
-
-
-
-// }
+    // // many songs can belong to playlist for each unique user 
+    // @ManyToOne(() => Playlist, (playList) => playList.songs)
+    // playList: Playlist;
+}
