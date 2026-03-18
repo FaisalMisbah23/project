@@ -8,7 +8,13 @@ import { DevConfigService } from './common/providers/DevConfigService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { DataSource } from 'typeorm';
-import { Songs } from './songs/song.entity';
+import { Song } from './songs/song.entity';
+import { User } from './users/user.entity';
+import { Artist } from './artists/artist.entity';
+import { Playlist } from './playlists/playlist.entity';
+import { PlaylistsModule } from './playlists/playlists.module';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 const devConfig = { port: 3000 }
 const proConfig = { port: 4000 }
@@ -27,10 +33,13 @@ const proConfig = { port: 4000 }
       type: 'postgres',
       username: process.env.DB_USER ?? 'skills_project_user',
       password: process.env.DB_PASSWORD ?? '',
-      entities:[Songs],
+      entities:[Song,User,Artist,Playlist],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
-    SongsModule
+    SongsModule,
+    PlaylistsModule,
+    AuthModule,
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService, {

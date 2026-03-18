@@ -1,21 +1,26 @@
-// import { Playlist } from "src/playlists/playlist.entity";
-// import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Exclude } from "class-transformer";
+import { Playlist } from "src/playlists/playlist.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-// @Entity("users")
+@Entity("users")
+export class User {
+    @PrimaryGeneratedColumn()
+    id: number
 
-// export class Users {
-//     @PrimaryGeneratedColumn()
-//     id: number
+    @Column({unique:true})
+    email: string
 
-//     @Column()
-//     email: string
+    @Column()
+    firstName: string
 
-//     @Column()
-//     name: string
+    @Column()
+    lastName: string
 
-//     @Column()
-//     password: string
+    @Column()
+    @Exclude()
+    password: string
 
-//     // a user can create many playlists
-//     @OneToMany((Playlist) => Playlist, (playList) => playList.user) playList: Playlist;
-// }
+    // a user can create many playlists
+    @OneToMany(() => Playlist, (playlist) => playlist.user)
+    playLists: Playlist[];
+}
