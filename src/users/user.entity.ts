@@ -7,7 +7,7 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({unique:true})
+    @Column({ unique: true })
     email: string
 
     @Column()
@@ -19,6 +19,15 @@ export class User {
     @Column()
     @Exclude()
     password: string
+
+    @Column({ nullable: true, type: "text" })
+    twoFASecret: string | null
+
+    @Column({ default: false, type: "boolean" })
+    enabled2FA: boolean
+
+    @Column()
+    apiKey: string
 
     // a user can create many playlists
     @OneToMany(() => Playlist, (playlist) => playlist.user)

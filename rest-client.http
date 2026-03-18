@@ -6,6 +6,7 @@ GET http://localhost:3000/songs
 ### post a new song
 POST http://localhost:3000/songs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGlzdC5vbmVAZXhhbXBsZS5jb20iLCJzdWIiOjgsImlhdCI6MTc3MzgwNjI2NywiZXhwIjoxNzczODkyNjY3fQ.fgV9RMjdkfMtcQhPmoVKTSbF9kVitKw6D-LSEZedHLo
 
 {
 "title":"New Song Title",
@@ -44,13 +45,67 @@ Content-Type: application/json
 "user":1
 }
 
-#### create a new user
+### create a new user
 POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-"firstName":"Faisal",
-"lastName":"Misbah",
+"firstName":"user",
+"lastName":"1",
+"email":"user1@example.com",
+"password":"userpassword123"
+}
+
+### login a user
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
 "email":"faisal.misbah@example.com",
 "password":"password123"
 }
+
+### access token : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImZhaXNhbC5taXNiYWhAZXhhbXBsZS5jb20iLCJzdWIiOjQsImlhdCI6MTc3MzgwMDMxNSwiZXhwIjoxNzczODg2NzE1fQ.wfLYVNzhUtBfUN6v7r1D8uIDVslfsDjPrTD4MejO7Kk
+
+### profile
+GET http://localhost:3000/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGlzdC50d29AZXhhbXBsZS5jb20iLCJzdWIiOjEwLCJhcnRpc3RJZCI6NCwiaWF0IjoxNzczODA3OTM0LCJleHAiOjE3NzM4OTQzMzR9.7L0yJW5ybxUGAA5eeZWDr1-z4qSXPl8YDNCr5Q1GwyM
+
+### sign up artist 
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+"firstName":"Artist",
+"lastName":"2",
+"email":"artist.two@example.com",
+"password":"artistpassword123"
+}
+
+### login artist
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+"email":"artist.two@example.com",
+"password":"artistpassword123"
+}
+
+### enable 2fa
+GET http://localhost:3000/auth/enable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGlzdC50d29AZXhhbXBsZS5jb20iLCJzdWIiOjEwLCJhcnRpc3RJZCI6NCwiaWF0IjoxNzczODIxMjExLCJleHAiOjE3NzM5MDc2MTF9.EoYfaOCV8-L2ysaqi7vuKxTg_eOS85g-o1YmWwMCzec
+
+### validate the 2fa token
+POST http://localhost:3000/auth/validate-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGlzdC50d29AZXhhbXBsZS5jb20iLCJzdWIiOjEwLCJhcnRpc3RJZCI6NCwiaWF0IjoxNzczODA3OTM0LCJleHAiOjE3NzM4OTQzMzR9.7L0yJW5ybxUGAA5eeZWDr1-z4qSXPl8YDNCr5Q1GwyM
+Content-Type: application/json
+
+{"token":"493071"}
+
+### disable 2fa
+GET http://localhost:3000/auth/disable-2fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGlzdC50d29AZXhhbXBsZS5jb20iLCJzdWIiOjEwLCJhcnRpc3RJZCI6NCwiaWF0IjoxNzczODA3OTM0LCJleHAiOjE3NzM4OTQzMzR9.7L0yJW5ybxUGAA5eeZWDr1-z4qSXPl8YDNCr5Q1GwyM
+
+### access protected route with api key
+GET http://localhost:3000/auth/profile-api-key
+Authorization: Bearer 4b907cc8-199c-47ad-b5f9-0907cd6a036e

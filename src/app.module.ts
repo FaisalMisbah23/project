@@ -15,9 +15,18 @@ import { Playlist } from './playlists/playlist.entity';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ArtistsModule } from './artists/artists.module';
 
 const devConfig = { port: 3000 }
 const proConfig = { port: 4000 }
+
+const requiredEnv = (key: string): string => {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${key}`);
+  }
+  return value;
+};
 
 
 
@@ -27,19 +36,20 @@ const proConfig = { port: 4000 }
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      database: process.env.DB_NAME ?? 'skills_project_db',
-      host: process.env.DB_HOST ?? '127.0.0.1',
-      port: parseInt(process.env.DB_PORT ?? '5432', 10),
+      database: requiredEnv('DB_NAME'),
+      host: requiredEnv('DB_HOST'),
+      port: parseInt(requiredEnv('DB_PORT'), 10),
       type: 'postgres',
-      username: process.env.DB_USER ?? 'skills_project_user',
-      password: process.env.DB_PASSWORD ?? '',
-      entities:[Song,User,Artist,Playlist],
+      username: requiredEnv('DB_USER'),
+      password: requiredEnv('DB_PASSWORD'),
+      entities: [Song, User, Artist, Playlist],
       synchronize: process.env.NODE_ENV !== 'production',
     }),
     SongsModule,
     PlaylistsModule,
     AuthModule,
-    UsersModule
+    UsersModule,
+    ArtistsModule,
   ],
   controllers: [AppController],
   providers: [AppService, {
@@ -53,8 +63,8 @@ const proConfig = { port: 4000 }
     }],
 })
 export class AppModule implements NestModule {
-  constructor(private datasource:DataSource){
-    console.log("DBName ",datasource.driver.database)
+  constructor(private datasource: DataSource) {
+    console.log("DBName ", datasource.driver.database)
   }
   configure(consumer: MiddlewareConsumer) {
     // option 1 
