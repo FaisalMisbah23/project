@@ -16,17 +16,12 @@ import { PlaylistsModule } from './playlists/playlists.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ArtistsModule } from './artists/artists.module';
+import { dataSourceOptions } from 'db/data-source';
 
 const devConfig = { port: 3000 }
 const proConfig = { port: 4000 }
 
-const requiredEnv = (key: string): string => {
-  const value = process.env[key];
-  if (!value) {
-    throw new Error(`Missing required environment variable: ${key}`);
-  }
-  return value;
-};
+
 
 
 
@@ -35,16 +30,7 @@ const requiredEnv = (key: string): string => {
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      database: requiredEnv('DB_NAME'),
-      host: requiredEnv('DB_HOST'),
-      port: parseInt(requiredEnv('DB_PORT'), 10),
-      type: 'postgres',
-      username: requiredEnv('DB_USER'),
-      password: requiredEnv('DB_PASSWORD'),
-      entities: [Song, User, Artist, Playlist],
-      synchronize: process.env.NODE_ENV !== 'production',
-    }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     SongsModule,
     PlaylistsModule,
     AuthModule,
