@@ -1,11 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { validate } from 'class-validator';
 import { ValidationPipe } from '@nestjs/common';
+import { SeedService } from './seed/seed.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(process.env.PORT ?? 3000);
+
+  // enable it to seed the data 
+  const seedService = app.get(SeedService)
+  await seedService.seed()
 }
+
 bootstrap();

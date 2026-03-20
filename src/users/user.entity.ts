@@ -29,8 +29,8 @@ export class User {
     @Column()
     apiKey: string
 
-    @Column()
-    phone: string
+    // @Column()
+    // phone: string
 
     // a user can create many playlists
     @OneToMany(() => Playlist, (playlist) => playlist.user)
